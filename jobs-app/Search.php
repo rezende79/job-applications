@@ -13,4 +13,6 @@ $companies = $companyLoader->getCompanies();
 
 $approvedCompanies = $searchManager->searchCompanies($personBadges, $companies);
 
-var_dump($approvedCompanies);
+foreach ($approvedCompanies as $company) {
+    echo $company->getName() . ' matches with the candidate.' . PHP_EOL;
+}

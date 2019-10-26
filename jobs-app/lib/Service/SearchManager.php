@@ -6,9 +6,9 @@ class SearchManager
      *
      * @param array $person_badges
      * @param array $companies
-     * @return String[]
+     * @return Company[]
      */
-    public function searchCompanies(array &$person_badges, array &$companies)
+    public function searchCompanies(array &$person_badges, array $companies)
     {
         $approvedCompanies = array();
 
@@ -61,7 +61,7 @@ class SearchManager
             }
 
             if ($company_match) {
-                $approvedCompanies[] = $company->getName();
+                $approvedCompanies[] = $company;
             }
         }
 
