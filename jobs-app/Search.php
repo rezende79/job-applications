@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . '/class/Model/Company.php';
-require __DIR__ . '/class/Service/CompanyLoader.php';
-require __DIR__ . '/class/Service/SearchManager.php';
+require __DIR__ . '/lib/Model/Company.php';
+require __DIR__ . '/lib/Service/CompanyLoader.php';
+require __DIR__ . '/lib/Service/SearchManager.php';
 
 $companyLoader = new CompanyLoader();
 
