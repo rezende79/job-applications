@@ -1,7 +1,6 @@
-# job-applications
-Job applications repository
+Here I show my code samples for job applications.
 
-## Jobs Application Problem
+### Jobs search problem
 Imagine you have a _bike_ and a _driving license_. You also found a job board with a list of companies offering a job. To get the job, you need to fulfill some requirements. There are 10.000 companies on the job board, 10 examples are as follows:
 
 - "Company A" requires an apartment or house, and property insurance.
