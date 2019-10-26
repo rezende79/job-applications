@@ -1,8 +1,8 @@
 # job-applications
 Job applications repository
 
-## jobs-app
-Imagine you have a bike and a driving license. You also found a job board with a list of companies offering a job. To get the job, you need to fulfill some requirements. There are 10.000 companies on the job board, 10 examples are as follows:
+## Jobs Application Problem
+Imagine you have a _bike_ and a _driving license_. You also found a job board with a list of companies offering a job. To get the job, you need to fulfill some requirements. There are 10.000 companies on the job board, 10 examples are as follows:
 
 - "Company A" requires an apartment or house, and property insurance.
 - "Company B" requires 5 door car or 4 door car, and a driver's license and car insurance.
@@ -15,6 +15,6 @@ Imagine you have a bike and a driving license. You also found a job board with a
 - "Company J" doesn't require anything, you can come and start working immediately.
 - "Company K" requires a PayPal account.
 
-Your task is to write code that will calculate for which companies you can work and for which you can't. You can convert the statements like "Company J requires PayPal account" to whatever form or structure you need. Please use PHP if you are applying for a backend developer, or JavaScript if you are applying for a frontend developer role. Also, please put your code online as a snippet, git repository, gist, etc.
+Your task is to write code that will calculate for which companies you can work and for which you can't. You can convert the statements like "Company J requires PayPal account" to whatever form or structure you need.
 
-Solution: 
+Solution: https://github.com/rezehnde/job-applications/tree/master/jobs-app
