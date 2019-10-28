@@ -11,7 +11,7 @@ $personBadges = array( 'bike', 'drivers_licence' );
 
 $companies = $companyLoader->getCompanies();
 
-$approvedCompanies = $searchManager->searchCompanies($personBadges, $companies);
+$approvedCompanies = $searchManager->getApprovedCompanies($personBadges, $companies);
 
 foreach ($approvedCompanies as $company) {
     echo $company->getName() . ' matches with the candidate.' . PHP_EOL;

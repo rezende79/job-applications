@@ -8,63 +8,94 @@ class SearchManager
      * @param array $companies
      * @return Company[]
      */
-    public function searchCompanies(array &$person_badges, array $companies)
+    public function getApprovedCompanies(array &$person_badges, array $companies)
     {
         $approvedCompanies = array();
 
         foreach ($companies as $company) {
-            $rules = $company->getRules();
-            $requirements = array();
+            $matched_rules_result = array();
+            $company_rules = $company->getRules();
+            $company_rules_conditional = $company_rules[ sizeof($company_rules) - 1 ]; // and | or | none
 
-            for ($i = 0; $i < sizeof($rules) - 1; $i++) {
-                $match_rule = false;
-
-                if (sizeof($rules[ $i ]) > 0) {
-                    foreach ($person_badges as $person_badge) {
-                        if (in_array($person_badge, $rules[ $i ])) {
-                            $condition = $rules[ $i ][ sizeof($rules[ $i ]) - 1 ];
-                            if ($condition == 'and') {
-                                foreach ($rules[ $i ] as $item) {
-                                    if (!in_array($item, $person_badges)) {
-                                        $match_rule = false;
-                                        break;
-                                    }
-                                }
-                            } else {
-                                $match_rule = true;
-                                break;
-                            }
-                        }
-                    }
+            for ($i = 0; $i < sizeof($company_rules) - 1; $i++) {
+                $person_match_rule = false;
+                if (sizeof($company_rules[ $i ]) > 0) {
+                    $person_match_rule = $this->personMatchRules($person_badges, $company_rules[ $i ]);
                 } else {
-                    $match_rule = true;
+                    $person_match_rule = true;
                 }
-                $requirements[] = $match_rule;
+                $matched_rules_result[] = $person_match_rule;
             }
 
-            $company_match = true;
-            if ($rules[ sizeof($rules) - 1 ] == 'and') {
-                foreach ($requirements as $requirement) {
-                    if (!$requirement) {
-                        $company_match = false;
-                        break;
-                    }
-                }
-            } else {
-                $company_match = false;
-                foreach ($requirements as $requirement) {
-                    if ($requirement) {
-                        $company_match = true;
-                        break;
-                    }
-                }
-            }
-
-            if ($company_match) {
+            if ($this->companyMatch($matched_rules_result, $company_rules_conditional)) {
                 $approvedCompanies[] = $company;
             }
         }
 
         return $approvedCompanies;
+    }
+
+    /**
+     * Receives an array with values of true or false from satisfied rules of a company by a person
+     * and returns if this satisfied rules are aligned with the rules conditional (and, or, none)
+     *
+     * @param array $matched_rules_result
+     * @param String $rules_conditional
+     * @return Boolean
+     */
+    private function companyMatch(array $matched_rules_result, String $rules_conditional)
+    {
+        $company_match = true;
+        switch ($rules_conditional) {
+            case 'and':
+                foreach ($matched_rules_result as $rule_result) {
+                    if (!$rule_result) {
+                        $company_match = false;
+                        break;
+                    }
+                }
+                break;
+            case 'or' || 'none':
+                $company_match = false;
+                foreach ($matched_rules_result as $rule_result) {
+                    if ($rule_result) {
+                        $company_match = true;
+                        break;
+                    }
+                }
+                break;
+        }
+        return $company_match;
+    }
+
+    /**
+     * Check if person characteristics satisfy the rules of a company
+     *
+     * @param array $person_badges
+     * @param array $rules
+     * @return Boolean
+     */
+    private function personMatchRules(array $person_badges, array $rules)
+    {
+        $match_rule = false;
+        foreach ($person_badges as $person_badge) {
+            if (in_array($person_badge, $rules)) {
+                $rules_condition = $rules[ sizeof($rules) - 1 ];
+                switch ($rules_condition) {
+                    case 'and':
+                        foreach ($rules as $rule) {
+                            if (!in_array($rule, $person_badges)) {
+                                $match_rule = false;
+                                break;
+                            }
+                        }
+                        break;
+                    case 'or' || 'none':
+                        $match_rule = true;
+                        break;
+                }
+            }
+        }
+        return $match_rule;
     }
 }
