@@ -5,17 +5,22 @@
  * 
  * == What changes would you suggest to reduce or remove that delay? ==
  */
-public function add_my_courses_section() {
+function add_my_courses_section() {
 	global $current_user;
 
-	$api_user_id = get_user_meta( current_user->ID, '_external_api_user_id', true );
+	$api_user_id = get_user_meta( $current_user->ID, '_external_api_user_id', true );
 
 	if ( !$api_user_id ) {
 		return;
 	}
 
-	$courses  = $this->get_api()->get_courses_assigned_to_user( $api_user_id );
-	$sso_link = $this->get_api()->get_sso_link( $api_user_id );
+	/**
+	 * I have removed the $this reference because this is not a class and create only one $api object
+	 * despite two of then as in the previous code.
+	 */
+    $api = get_api();
+	$courses  = $api->get_courses_assigned_to_user( $api_user_id );
+	$sso_link = $api->get_sso_link( $api_user_id );
 
 	?>
 	<h2 style="margin-top: 40px;"><?php print __( 'My Courses', 'text-domain' ); ?></h2>
@@ -38,7 +43,7 @@ public function add_my_courses_section() {
 		?>
 		</tbody>
 	</table>
-	<p><a href="<?php echo $sso_link ?>" target="_blank" class="button <?php echo $_GET['active_course']; ?>"><?php echo __( 'Course Login', 'text-domain' ); ?></a></p>
+	<p><a href="<?php echo $sso_link; ?>" target="_blank" class="button <?php echo $_GET['active_course']; ?>"><?php echo __( 'Course Login', 'text-domain' ); ?></a></p>
 
 	<?php
 }
