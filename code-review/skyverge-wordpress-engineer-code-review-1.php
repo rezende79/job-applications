@@ -18,7 +18,6 @@ function add_my_courses_section() {
      * I have removed the $this reference because this is not a class and create only one $api object
      * despite two of then as in the previous code
      */
-    $api = get_api();
     $courses  = $api->get_courses_assigned_to_user( $api_user_id );
     $sso_link = $api->get_sso_link( $api_user_id );
 
