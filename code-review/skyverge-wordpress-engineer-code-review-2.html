@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SkyVerge WordPress Engineer Code Review #2</title>
+        <script>
+            setTimeout(() => {
+                todos = document.getElementsByClassName("todo");
+                Array.from(todos).forEach((item, index) => {
+                    item.addEventListener("click", evt => {
+                        evt.target.style = "text-decoration: line-through";
+                        alert(
+                            "Item " +
+                                (index + 1) +
+                                ': "' +
+                                evt.target.innerText +
+                                '" is done!'
+                        );
+                    });
+                });
+            }, 10);
+        </script>
+    </head>
+    <body>
+        <ul id="todo-app">
+            <li class="todo">Walk the dog</li>
+            <li class="todo">Pay bills</li>
+            <li class="todo">Make dinner</li>
+            <li class="todo">Code for one hour</li>
+            <li class="todo">Hire Marcos Rezende :)</li>
+        </ul>
+    </body>
+</html>
