@@ -14,9 +14,7 @@ public function add_my_courses_section() {
 		return;
 	}
 
-$api = 
-
-	$courses  = $api->get_courses_assigned_to_user( $api_user_id );
+	$courses  = $this->get_api()->get_courses_assigned_to_user( $api_user_id );
 	$sso_link = $this->get_api()->get_sso_link( $api_user_id );
 
 	?>
